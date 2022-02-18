@@ -19,7 +19,12 @@ const AddQuiz = () => {
   const onSubmit = data => {
     console.log(data)
     data['id'] = new Date().getTime().toString()
-    data['options'] = [data.a, data.b, data.c, data.d]
+    data['options'] = {
+      a: data.a,
+      b: data.b,
+      c: data.c,
+      d: data.d
+    }
     const newData = {
       name: data.name,
       options: data.options,
@@ -100,11 +105,18 @@ const AddQuiz = () => {
             placeholder='Option: D'
             {...register('d', { required: true })}
           />
-          <input
+          {/* <input
             className='form-control m-4'
             placeholder='Answer'
             {...register('answer', { required: true })}
-          />
+          /> */}
+
+          <select {...register('answer')} className='form-control m-4'>
+            <option value='a'>A</option>
+            <option value='b'>B</option>
+            <option value='c'>C</option>
+            <option value='d'>D</option>
+          </select>
 
           {errors.exampleRequired && <span>This field is required</span>}
 
