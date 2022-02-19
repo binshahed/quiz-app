@@ -5,6 +5,7 @@ import useLoginData from '../../hooks/useLoginData'
 const Login = () => {
   const [usersData, setUsersData] = useState([])
   const [loggedInUser, setLoggedInUser] = useLoginData()
+  const [errorLogin, setErrorLogin] = useState('')
   useEffect(() => {
     let lsData = localStorage.getItem('users')
     if (lsData) {
@@ -25,8 +26,11 @@ const Login = () => {
     usersData.map(user => {
       if (user.email === data.email && user.password === data.password) {
         window.location.reload(false)
+        setErrorLogin('')
+
         return setLoggedInUser(data)
       } else {
+        setErrorLogin('email or password does not exist')
         return []
       }
     })
@@ -54,6 +58,8 @@ const Login = () => {
           type='password'
           {...register('password', { required: true })}
         />
+
+        <p className='text-danger'>{errorLogin}</p>
 
         <input type='submit' />
       </form>

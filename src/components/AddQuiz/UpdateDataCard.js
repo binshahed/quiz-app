@@ -50,7 +50,7 @@ const UpdateDataCard = props => {
           />
           <input
             className='form-control m-4'
-            defaultValue={question?.a}
+            defaultValue={question?.options?.a}
             placeholder='Option: A'
             {...register('a', { required: true })}
           />
@@ -75,7 +75,7 @@ const UpdateDataCard = props => {
 
           {errors.exampleRequired && <span>This field is required</span>}
 
-          <button className='btn btn-primary' type='submit'>
+          <button closeButton className='btn btn-primary' type='submit'>
             Update
           </button>
         </form>

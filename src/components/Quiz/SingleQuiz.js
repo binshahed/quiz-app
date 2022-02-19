@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonGroup, Card, ToggleButton } from 'react-bootstrap'
 import useLoginData from '../../hooks/useLoginData'
 
@@ -28,7 +28,6 @@ const SingleQuiz = ({
       setButtonSelect(true)
       // setMyButton(btnStyle)
     } else {
-      console.log(false)
       const gotAnswer = {
         user: loggedInUser?.email,
         id: element.id,
@@ -43,10 +42,13 @@ const SingleQuiz = ({
     }
   }
 
+
+
+
   return (
     <div>
       <Card.Body>
-        <h3> {element.name} </h3>
+        <p className="fs-3 mx-5 px-5"> {element.name} </p>
 
         {/* {Object.keys(element.options).map((option, index) => ( */}
         {Object.keys(element.options).map((option, index) => (
@@ -54,7 +56,7 @@ const SingleQuiz = ({
             onClick={() => handleQuestionAnswer(option)}
             key={index}
             style={{ width: '40%' }}
-            className={`btn btn-primary m-3 py-3 `}
+            className={`btn btn-secondary m-3 py-3 `}
             disabled={buttonSelect}
           >
             {element.options[option]}

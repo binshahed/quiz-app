@@ -22,7 +22,6 @@ const SignUp = () => {
     formState: { errors }
   } = useForm()
   const onSubmit = data => {
-    console.log(data)
     setUserData([...userData, data])
   }
 

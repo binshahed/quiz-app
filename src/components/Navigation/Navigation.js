@@ -3,11 +3,11 @@ import logo from '../../img/logo.png'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import useLoginData from '../../hooks/useLoginData'
-import { Button } from 'bootstrap'
+
 
 const Navigation = () => {
   const [loggedInUser, setLoggedInUser] = useLoginData()
-  console.log(loggedInUser)
+ 
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
@@ -34,7 +34,7 @@ const Navigation = () => {
           </Nav>
           <Nav>
             {loggedInUser?.email && (
-              <p className='text-primary'>{loggedInUser?.email}</p>
+              <p className='text-warning mx-3 mt-3'>{loggedInUser?.email}</p>
             )}
 
             {loggedInUser ? (

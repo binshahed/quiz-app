@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import UpdateDataCard from './UpdateDataCard'
+import useLoginData from '../../hooks/useLoginData'
 
 const AddQuiz = () => {
   const [questions, setQuestions] = useState([])
+
   const [modalShow, setModalShow] = React.useState(false)
 
   // React hook form to get data from Input
@@ -16,8 +18,10 @@ const AddQuiz = () => {
     reset,
     formState: { errors }
   } = useForm()
+
+  const [loggedInUser, setLoggedInUser] = useLoginData()
+
   const onSubmit = data => {
-    console.log(data)
     data['id'] = new Date().getTime().toString()
     data['options'] = {
       a: data.a,
@@ -75,90 +79,89 @@ const AddQuiz = () => {
 
   return (
     <div className='container'>
-      <h1 className='mt-4'>Add Quiz</h1>
+      {loggedInUser?.email === 'admin@admin.com' && (
+        <>
+          <h1 className='mt-4'>Add Quiz</h1>
 
-      {/* form section  */}
-      <div className='add-item'>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className='form-control m-4'
-            placeholder='Question'
-            {...register('name', { required: true })}
-          />
-          <input
-            className='form-control m-4'
-            placeholder='Option: A'
-            {...register('a', { required: true })}
-          />
-          <input
-            className='form-control m-4'
-            placeholder='Option: B'
-            {...register('b', { required: true })}
-          />
-          <input
-            className='form-control m-4'
-            placeholder='Option: C'
-            {...register('c', { required: true })}
-          />
-          <input
-            className='form-control m-4'
-            placeholder='Option: D'
-            {...register('d', { required: true })}
-          />
-          {/* <input
-            className='form-control m-4'
-            placeholder='Answer'
-            {...register('answer', { required: true })}
-          /> */}
+          {/* form section  */}
+          <div className='add-item'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                className='form-control m-4'
+                placeholder='Question'
+                {...register('name', { required: true })}
+              />
+              <input
+                className='form-control m-4'
+                placeholder='Option: A'
+                {...register('a', { required: true })}
+              />
+              <input
+                className='form-control m-4'
+                placeholder='Option: B'
+                {...register('b', { required: true })}
+              />
+              <input
+                className='form-control m-4'
+                placeholder='Option: C'
+                {...register('c', { required: true })}
+              />
+              <input
+                className='form-control m-4'
+                placeholder='Option: D'
+                {...register('d', { required: true })}
+              />
 
-          <select {...register('answer')} className='form-control m-4'>
-            <option value='a'>A</option>
-            <option value='b'>B</option>
-            <option value='c'>C</option>
-            <option value='d'>D</option>
-          </select>
+              <select {...register('answer')} className='form-control m-4'>
+                <option value='a'>A</option>
+                <option value='b'>B</option>
+                <option value='c'>C</option>
+                <option value='d'>D</option>
+              </select>
 
-          {errors.exampleRequired && <span>This field is required</span>}
+              {errors.exampleRequired && <span>This field is required</span>}
 
-          <input className='btn btn-primary' type='submit' />
-        </form>
-      </div>
+              <input className='btn btn-primary' type='submit' />
+            </form>
+          </div>
 
-      {/* data view section */}
-      <div className='show-data mt-5'>
-        {questions.map(question => (
-          <Alert key={question.id} variant='primary'>
-            <Row>
-              <Col className='text-start' sm={10}>
-                {question.name}
-              </Col>
-              <Col className='text-end' sm={2}>
-                <FontAwesomeIcon
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleUpdate(question)}
-                  icon={faPenToSquare}
-                  className='m-2'
-                  title='Update Question'
-                />
-                <FontAwesomeIcon
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleDelete(question.id)}
-                  icon={faTrash}
-                  className='m-2'
-                  title='Delete Question'
-                />
-              </Col>
-            </Row>
-          </Alert>
-        ))}
-      </div>
-      <UpdateDataCard
-        questions={questions}
-        setQuestions={setQuestions}
-        question={edit}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+          {/* data view section */}
+          <div className='show-data mt-5'>
+            {questions.map(question => (
+              <Alert key={question.id} variant='primary'>
+                <Row>
+                  <Col className='text-start' sm={10}>
+                    {question.name}
+                  </Col>
+                  <Col className='text-end' sm={2}>
+                    <FontAwesomeIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleUpdate(question)}
+                      icon={faPenToSquare}
+                      className='m-2'
+                      title='Update Question'
+                    />
+                    <FontAwesomeIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDelete(question.id)}
+                      icon={faTrash}
+                      className='m-2'
+                      title='Delete Question'
+                    />
+                  </Col>
+                </Row>
+              </Alert>
+            ))}
+          </div>
+          <UpdateDataCard
+            questions={questions}
+            setQuestions={setQuestions}
+            question={edit}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+        </>
+      )}
     </div>
   )
 }

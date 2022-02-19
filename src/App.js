@@ -5,16 +5,16 @@ import AddQuiz from './components/AddQuiz/AddQuiz'
 import Quiz from './components/Quiz/Quiz'
 import SignUp from './components/SignUp/SignUp'
 import Login from './components/Login/Login'
-// import useLoginData from './hooks/useLoginData'
 
 function App () {
-  // const [loggedInUser, setLoggedInUser] = useLoginData()
-
   return (
     <div className='App'>
       <Router>
         <Navigation />
         <Switch>
+        <Route exact path='/'>
+        <Quiz />
+          </Route>
           <Route path='/register'>
             <SignUp />
           </Route>
@@ -24,11 +24,10 @@ function App () {
           <Route path='/quiz'>
             <Quiz />
           </Route>
-          {/* {loggedInUser?.email === 'admin@admin.com' && ( */}
+
           <Route path='/addquiz'>
             <AddQuiz />
           </Route>
-          {/*  )} */}
         </Switch>
       </Router>
     </div>

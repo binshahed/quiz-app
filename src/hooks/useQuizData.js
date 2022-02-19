@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 const useQuizData = () => {
-    const [questions, setQuestions] = useState([])
-
+  
+  const [questions, setQuestions] = useState([])
 
   // Load Data from local storage
   useEffect(() => {
