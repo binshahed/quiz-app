@@ -1,26 +1,25 @@
 import React, { useState } from 'react'
-import { useEffect } from 'react'
 import { Card } from 'react-bootstrap'
+import useQuizData from '../../hooks/useQuizData'
+import ResultModal from '../AddQuiz/ResultModal'
 // import useUser from '../../hooks/useUser'
 import SingleQuiz from './SingleQuiz'
 
 const Quiz = () => {
-  const [questions, setQuestions] = useState([])
-  const [wrongAnswer, setWrongAnswer] = useState()
-  const [correctAnswer, setCorrectAnswer] = useState()
-  // const { loggedInUser } = useUser()
-  // console.log(loggedInUser?.email);
+  const [questions, setQuestions] = useQuizData()
+  const [allAnswers, setAllAnswers] = useState([])
+  const [selectedAnswer, setSelectedAnswer] = useState({})
+  const [previousAnswer, setPreviousAnswer] = useState([])
 
-  // Load Data from local storage
-  useEffect(() => {
-    let lsData = localStorage.getItem('allQuestions')
-    if (lsData) {
-      const data = JSON.parse(localStorage.getItem('allQuestions'))
-      setQuestions(data)
-    } else {
-      return []
-    }
-  }, [])
+  const [show, setShow] = useState(false)
+  const [fullscreen, setFullscreen] = useState(true)
+
+  const handleSubmitAnswer = () => {
+    const newAnswer = [...previousAnswer, allAnswers]
+    setPreviousAnswer(...newAnswer)
+    setShow(true)
+    setFullscreen(true)
+  }
 
   return (
     <div className='container'>
@@ -30,13 +29,27 @@ const Quiz = () => {
         <Card key={element.id} className='my-5'>
           <SingleQuiz
             element={element}
-            correctAnswer={correctAnswer}
-            setCorrectAnswer={setCorrectAnswer}
-            wrongAnswer={wrongAnswer}
-            setWrongAnswer={setWrongAnswer}
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            allAnswers={allAnswers}
+            setAllAnswers={setAllAnswers}
           />
         </Card>
       ))}
+      <button
+        onClick={() => handleSubmitAnswer('sm-down')}
+        className='btn btn-warning'
+      >
+        Submit Answer
+      </button>
+
+      <ResultModal
+        fullscreen={fullscreen}
+        show={show}
+        setShow={setShow}
+        allAnswers={allAnswers}
+        
+      />
     </div>
   )
 }
