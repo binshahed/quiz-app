@@ -8,7 +8,6 @@ import useLoginData from '../../hooks/useLoginData'
 
 const AddQuiz = () => {
   const [questions, setQuestions] = useState([])
-
   const [modalShow, setModalShow] = React.useState(false)
 
   // React hook form to get data from Input
@@ -21,6 +20,8 @@ const AddQuiz = () => {
 
   const [loggedInUser, setLoggedInUser] = useLoginData()
 
+
+  // submit questions data 
   const onSubmit = data => {
     data['id'] = new Date().getTime().toString()
     data['options'] = {
@@ -37,7 +38,7 @@ const AddQuiz = () => {
     }
 
     setQuestions([...questions, newData])
-    // reset()
+    reset()
   }
 
   // Delete question
@@ -51,8 +52,8 @@ const AddQuiz = () => {
     }
   }
 
+// data edit section
   const [edit, setEdit] = useState()
-
   const handleUpdate = id => {
     setEdit(id)
     setModalShow(true)
@@ -152,14 +153,15 @@ const AddQuiz = () => {
                 </Row>
               </Alert>
             ))}
+
+            <UpdateDataCard
+              questions={questions}
+              setQuestions={setQuestions}
+              question={edit}
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
           </div>
-          <UpdateDataCard
-            questions={questions}
-            setQuestions={setQuestions}
-            question={edit}
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
         </>
       )}
     </div>

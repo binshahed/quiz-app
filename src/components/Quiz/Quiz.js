@@ -7,10 +7,11 @@ import ResultModal from './ResultModal'
 import SingleQuiz from './SingleQuiz'
 
 const Quiz = () => {
-  const fakeData = [
+  const staticData = [
     {
-      id: '1645299577425',
-      name: 'Which built-in method returns the character at the specified index?',
+      id: '1645299545677425',
+      name:
+        'Which built-in method returns the character at the specified index?',
       answer: 'c',
       options: {
         a: 'characterAt()',
@@ -20,8 +21,9 @@ const Quiz = () => {
       }
     },
     {
-      id: '1645299577422',
-      name: 'Which of the following function of Array object extracts a section of an array and returns a new array?',
+      id: '16452995723457422',
+      name:
+        'Which of the following function of Array object extracts a section of an array and returns a new array?',
       answer: 'c',
       options: {
         a: 'reverse()',
@@ -31,8 +33,9 @@ const Quiz = () => {
       }
     },
     {
-      id: '1645299577421',
-      name: 'Which of the following function of Array object creates a new array with the results of calling a provided function on every element in this array?',
+      id: '16452923459577421',
+      name:
+        'Which of the following function of Array object creates a new array with the results of calling a provided function on every element in this array?',
       answer: 'd',
       options: {
         a: 'push()',
@@ -42,25 +45,26 @@ const Quiz = () => {
       }
     }
   ]
+  // all state
   const [selectedAnswer, setSelectedAnswer] = useState({})
   const [buttonSelect, setButtonSelect] = useState(false)
   const [show, setShow] = useState(false)
   const [fullscreen, setFullscreen] = useState(true)
-
   const [loggedInUser, setLoggedInUser] = useLoginData()
   const [previousAnswer, setPreviousAnswer] = usePreviousAnswer()
   const [questions, setQuestions] = useQuizData()
   const [allAnswers, setAllAnswers] = useState([])
 
+  // answer submit
   const handleSubmitAnswer = () => {
     const newAnswer = [...previousAnswer, allAnswers]
     setPreviousAnswer([...newAnswer])
-
     setShow(true)
     setFullscreen(true)
     setButtonSelect(true)
   }
 
+  // set previous answer in localStorage
   useEffect(() => {
     localStorage.setItem('previous-answer', JSON.stringify(previousAnswer))
   }, [previousAnswer])
@@ -78,8 +82,7 @@ const Quiz = () => {
       ) : (
         <h1 className='my-5'>Please Login and play quiz</h1>
       )}
-
-      {fakeData.map(element => (
+      {staticData.map(element => (
         <Card key={element.id} className='my-5'>
           <SingleQuiz
             element={element}

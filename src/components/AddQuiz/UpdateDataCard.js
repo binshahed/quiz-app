@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form'
 const UpdateDataCard = props => {
   const { questions, question, setQuestions } = props
 
+
+  // update questions
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors }
   } = useForm()
   const onSubmit = data => {
@@ -56,19 +57,19 @@ const UpdateDataCard = props => {
           />
           <input
             className='form-control m-4'
-            defaultValue={question?.b}
+            defaultValue={question?.options?.b}
             placeholder='Option: B'
             {...register('b', { required: true })}
           />
           <input
             className='form-control m-4'
-            defaultValue={question?.c}
+            defaultValue={question?.options?.c}
             placeholder='Option: C'
             {...register('c', { required: true })}
           />
           <input
             className='form-control m-4'
-            defaultValue={question?.d}
+            defaultValue={question?.options?.d}
             placeholder='Option: D'
             {...register('d', { required: true })}
           />

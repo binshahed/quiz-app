@@ -15,12 +15,7 @@ const SignUp = () => {
     }
   }, [])
 
-  const {
-    register,
-    handleSubmit,
-
-    formState: { errors }
-  } = useForm()
+  const { register, handleSubmit } = useForm()
   const onSubmit = data => {
     setUserData([...userData, data])
   }

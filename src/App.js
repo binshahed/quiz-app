@@ -12,8 +12,8 @@ function App () {
       <Router>
         <Navigation />
         <Switch>
-        <Route exact path='/'>
-        <Quiz />
+          <Route exact path='/'>
+            <Quiz />
           </Route>
           <Route path='/register'>
             <SignUp />
@@ -24,7 +24,6 @@ function App () {
           <Route path='/quiz'>
             <Quiz />
           </Route>
-
           <Route path='/addquiz'>
             <AddQuiz />
           </Route>

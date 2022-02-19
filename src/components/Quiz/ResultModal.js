@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal, Table } from 'react-bootstrap'
+import {  Modal, Table } from 'react-bootstrap'
 import useLoginData from '../../hooks/useLoginData'
 import usePreviousAnswer from '../../hooks/usePreviousAnswer'
 
@@ -14,6 +14,7 @@ const ResultModal = ({
   const [previousAnswer, setPreviousAnswer] = usePreviousAnswer()
   const allPreviousAnswer = previousAnswer.flat()
 
+  // logged user previous answer
   const myPreviousAnswer = allPreviousAnswer.filter(
     answer => loggedInUser.email === answer.user
   )
@@ -32,6 +33,7 @@ const ResultModal = ({
           <Modal.Body>
             <div>
               <div className='row'>
+                {/* currentAnswer section   */}
                 <div className='col-md-6'>
                   <h2 className='text-center'>Result</h2>
                   <Table striped bordered hover>
@@ -53,6 +55,8 @@ const ResultModal = ({
                     </tbody>
                   </Table>
                 </div>
+
+                {/* previousAnswer section  */}
                 <div className='col-md-6'>
                   <h2 className='text-center'>Previous Result</h2>
 

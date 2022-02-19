@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useLoginData from '../../hooks/useLoginData'
+import useUserData from '../../hooks/useUserData'
 
 const Login = () => {
-  const [usersData, setUsersData] = useState([])
+  const [usersData, setUsersData] = useUserData([])
   const [loggedInUser, setLoggedInUser] = useLoginData()
   const [errorLogin, setErrorLogin] = useState('')
-  useEffect(() => {
-    let lsData = localStorage.getItem('users')
-    if (lsData) {
-      const data = JSON.parse(localStorage.getItem('users'))
-      setUsersData(data)
-    } else {
-      return []
-    }
-  }, [])
 
-  const {
-    register,
-    handleSubmit,
-
-    
-  } = useForm()
+  const { register, handleSubmit } = useForm()
   const onSubmit = data => {
     usersData.map(user => {
       if (user.email === data.email && user.password === data.password) {
